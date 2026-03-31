@@ -1,0 +1,25 @@
+{
+  "extends": "@react-native/typescript-config/tsconfig.json",
+  "compilerOptions": {
+    "jsx": "react",
+    "baseUrl": ".",
+    "resolveJsonModule": true,
+    "module": "NodeNext",
+    "moduleResolution": "NodeNext",
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
+    "paths": {
+      "@src/*": ["src/*"],
+      "tests": ["src/tests/*"],
+      "@components/*": ["src/components/*"],
+      "@screens/*": ["src/screens/*"],
+      "@stores/*": ["src/stores/*"],
+      "@images/*": ["src/assets/images/*"],
+      "ROOTDIR/*": ["./*"],
+      "include": ["src", ".json", "declarations.d.ts", "images.d.ts"]
+    },
+    "types": ["jest"]
+  },
+  "include": ["src/**/*"],
+  "exclude": ["node_modules"]
+}

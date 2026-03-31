@@ -1,0 +1,200 @@
+clone:
+  depth: full
+
+definitions:
+  services:
+    docker:
+      memory: 5120
+  caches:
+    node: node_modules
+    gradle-wrapper: ~/.gradle/wrapper
+    android-emulator: $ANDROID_HOME/system-images/android-21
+    sonar: ~/.sonar
+  commonItems: &set-variables |
+    export GIT_DEPTH=0
+    export IMAGE_TAG=$BITBUCKET_BUILD_NUMBER
+
+  steps:
+    # Dependency check
+    - step: &dependency-check
+        name: 'Dependency check'
+        image:
+          name: c42xcmpssdevapp01cr.azurecr.io/infra/maven-dependency-check:11.1.0-20241118
+          username: $DOCKER_REGISTRY_USERNAME
+          password: $DOCKER_REGISTRY_PASSWORD
+        runs-on:
+          - self.hosted
+          - 'compass'
+        script:
+          - *set-variables
+          - |
+            set +e # ignore errors
+            /opt/dependency-check/bin/dependency-check.sh --out . --scan . --format HTML --format JSON N --enableExperimental --nvdDatafeed https://sonarqube.g42compass.com/nist-cache
+            set -e # ignore errors
+        artifacts:
+          - dependency-check-report.html
+          - dependency-check-report.json
+
+    # Sonar scan
+    - step: &sonar-scan
+        name: SonarQube analysis
+        image:
+          name: c42xcmpssdevapp01cr.azurecr.io/infra/maven-dependency-check:11.1.0-20241118
+          username: $DOCKER_REGISTRY_USERNAME
+          password: $DOCKER_REGISTRY_PASSWORD
+        runs-on:
+          - self.hosted
+          - 'compass'
+        caches:
+          - sonar
+        script:
+          - pipe: sonarsource/sonarqube-scan:2.0.1
+            variables:
+              SONAR_HOST_URL: ${SONAR_HOST_URL}
+              SONAR_TOKEN: ${SONAR_TOKEN}
+        size: 2x
+
+    # Build
+    - step: &build-chatbotenterprisemobile
+        name: 'Build Android'
+        runs-on:
+          - self.hosted
+          - 'compass'
+        image:
+          name: c42xcmpssdevapp01cr.azurecr.io/infra/android-build-box:1.28.0
+          username: $DOCKER_REGISTRY_USERNAME
+          password: $DOCKER_REGISTRY_PASSWORD
+        # caches:
+        #   - node
+        #   - gradle
+        #   - gradle-wrapper
+        #   - android-emulator
+        script:
+          - |
+            echo "Install modules"
+            yarn install
+          - |
+            echo "Export variables"
+            KEYSTORE_FILE=android-signing-keystore.jks
+            cd android
+            echo "$SIGNING_JKS_FILE" | base64 -d > app/$KEYSTORE_FILE
+          - |
+            echo "Build APK"
+            ./gradlew assembleRelease \
+            -PKEYSTORE_FILE=$KEYSTORE_FILE \
+            -PSIGNING_KEYSTORE_PASSWORD=$SIGNING_KEYSTORE_PASSWORD \
+            -PSIGNING_KEY_ALIAS=$SIGNING_KEY_ALIAS \
+            -PSIGNING_KEY_PASSWORD=$SIGNING_KEY_PASSWORD
+          - |
+            echo "Build AAB"
+            ./gradlew bundleRelease \
+            -PKEYSTORE_FILE=$KEYSTORE_FILE \
+            -PSIGNING_KEYSTORE_PASSWORD=$SIGNING_KEYSTORE_PASSWORD \
+            -PSIGNING_KEY_ALIAS=$SIGNING_KEY_ALIAS \
+            -PSIGNING_KEY_PASSWORD=$SIGNING_KEY_PASSWORD
+        artifacts:
+          - android/app/build/outputs/**
+        size: 2x
+
+    # Build iOS
+    - step: &build-ios
+        name: 'Build iOS'
+        runs-on:
+          - self.hosted
+          - 'macos'
+        script:
+          - |
+            echo "Install modules"
+            export LANG=en_US.UTF-8
+            export PATH=/usr/local/bin:$PATH
+            export PATH=/opt/homebrew/bin:$PATH
+            yarn install
+          - |
+            echo "Set build number and file name"
+            BUILD_NUMBER=$BITBUCKET_BUILD_NUMBER
+            IPA_FILE_NAME=app-ios-$BUILD_NUMBER.ipa
+          - |
+            echo "Navigate to ios folder"
+            cd ios
+          - |
+            echo "Install CocoaPods dependencies"
+            pod install
+          - |
+            echo "Clean the build folder"
+              xcodebuild \
+              clean -workspace CompassChatBot.xcworkspace \
+              -scheme CompassChatBot \
+              -configuration Release \
+              -destination 'generic/platform=iOS'
+          - |
+            security unlock-keychain -p $LOGIN_PASSWORD
+          - |
+            echo "Archive the project"
+            xcodebuild archive -workspace CompassChatBot.xcworkspace \
+              -scheme CompassChatBot \
+              -configuration Release \
+              -archivePath ./build/CompassChatBot.xcarchive \
+              -destination 'generic/platform=iOS'
+          - |
+            echo "Export the .ipa file"
+            xcodebuild -exportArchive \
+              -archivePath ./build/CompassChatBot.xcarchive \
+              -exportOptionsPlist ExportOptions.plist \
+              -exportPath ./build \
+              -allowProvisioningUpdates \
+              -destination 'generic/platform=iOS'
+          - |
+            echo "Move the .ipa file to the root folder"
+            mv ./build/CompassChatBot.ipa ./build/$IPA_FILE_NAME
+        artifacts:
+          - android/app/build/outputs/**
+          - ios/build/**
+
+    # Push to Storage Account
+    - step: &push-to-storage
+        name: 'Push to Storage Account'
+        runs-on:
+          - self.hosted
+          - 'compass'
+        trigger: 'manual'
+        image:
+          name: c42xcmpssdevapp01cr.azurecr.io/infra/azdeploy:0.0.4
+          username: $DOCKER_REGISTRY_USERNAME
+          password: $DOCKER_REGISTRY_PASSWORD
+        script:
+          - |
+            echo "Upload to storage account"
+            BUILD_NUMBER=$BITBUCKET_BUILD_NUMBER
+            APK_FOLDER=android/app/build/outputs/apk
+            AAB_FOLDER=android/app/build/outputs/bundle
+            IPA_FILE=ios/build/app-ios-$BUILD_NUMBER.ipa
+            BLOB_FILE_NAME=app-$BUILD_NUMBER.tar
+            CONTAINER=android
+            STORAGE=c42xchentmobdevapp01st
+
+            tar cvf $BLOB_FILE_NAME $APK_FOLDER $AAB_FOLDER $IPA_FILE
+
+            az login --service-principal -u "$ARM_CLIENT_ID" -p "$ARM_CLIENT_SECRET" --tenant "$ARM_TENANT_ID"
+            az storage blob upload --account-name "$STORAGE" --auth-mode login --container-name $CONTAINER --file "$BLOB_FILE_NAME" --name "$BLOB_FILE_NAME" --overwrite
+
+  yaml-anchors:
+    # pull-requests brach pipeline
+    - &pull-requests
+      - step: *dependency-check
+      - step: *sonar-scan
+      - step: *build-chatbotenterprisemobile
+      - step: *push-to-storage
+
+    # develop brach pipeline
+    - &develop-pipeline
+      - parallel:
+          steps:
+            - step: *build-chatbotenterprisemobile
+            - step: *build-ios
+      - step: *push-to-storage
+
+pipelines:
+  pull-requests:
+    '**': *pull-requests
+  custom:
+    dev: *develop-pipeline

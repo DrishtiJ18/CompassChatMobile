@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="32700.99.1234" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="01J-lp-oVM">
+    <device id="retina5_9" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22685"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--View Controller-->
+        <scene sceneID="EHf-IW-A2E">
+            <objects>
+                <viewController id="01J-lp-oVM" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleAspectFit" insetsLayoutMarginsFromSafeArea="NO" id="Ze5-6b-2t3">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" insetsLayoutMarginsFromSafeArea="NO" image="backgroundImage" translatesAutoresizingMaskIntoConstraints="NO" id="Xfc-Zr-eKo">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+                            </imageView>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="CompassLogo" translatesAutoresizingMaskIntoConstraints="NO" id="5cM-e0-fLx">
+                                <rect key="frame" x="0.0" y="342" width="375" height="128"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="5cM-e0-fLx" secondAttribute="height" multiplier="15:8" id="fj1-qO-oRJ"/>
+                                    <constraint firstAttribute="width" secondItem="5cM-e0-fLx" secondAttribute="height" multiplier="15:8" id="nFF-n4-Jhl"/>
+                                </constraints>
+                            </imageView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="U6y-A4-PDI"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstAttribute="bottomMargin" secondItem="Xfc-Zr-eKo" secondAttribute="bottom" id="0MT-gW-Ecx"/>
+                            <constraint firstItem="5cM-e0-fLx" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="2FS-8d-b1e"/>
+                            <constraint firstItem="5cM-e0-fLx" firstAttribute="leading" secondItem="U6y-A4-PDI" secondAttribute="leading" id="3cR-IM-fr5"/>
+                            <constraint firstItem="U6y-A4-PDI" firstAttribute="bottom" secondItem="5cM-e0-fLx" secondAttribute="bottom" constant="308" id="96y-Sy-kvi"/>
+                            <constraint firstItem="5cM-e0-fLx" firstAttribute="top" secondItem="U6y-A4-PDI" secondAttribute="top" constant="292" id="Dpa-9e-mgl"/>
+                            <constraint firstItem="Xfc-Zr-eKo" firstAttribute="top" secondItem="Ze5-6b-2t3" secondAttribute="topMargin" id="JT8-5E-9B4"/>
+                            <constraint firstItem="5cM-e0-fLx" firstAttribute="leading" secondItem="U6y-A4-PDI" secondAttribute="leading" id="Z6P-1Y-1fJ"/>
+                            <constraint firstItem="Xfc-Zr-eKo" firstAttribute="trailing" secondItem="U6y-A4-PDI" secondAttribute="trailing" id="aYQ-V5-Yf5"/>
+                            <constraint firstItem="5cM-e0-fLx" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="crd-te-VUl"/>
+                            <constraint firstItem="Xfc-Zr-eKo" firstAttribute="leading" secondItem="U6y-A4-PDI" secondAttribute="leading" id="gCA-iv-GR1"/>
+                            <constraint firstItem="U6y-A4-PDI" firstAttribute="trailing" secondItem="5cM-e0-fLx" secondAttribute="trailing" id="mlS-Jl-Zkc"/>
+                            <constraint firstItem="5cM-e0-fLx" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" id="qjT-fU-ge3"/>
+                            <constraint firstItem="5cM-e0-fLx" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" id="vPF-Yh-yIC"/>
+                            <constraint firstItem="U6y-A4-PDI" firstAttribute="trailing" secondItem="5cM-e0-fLx" secondAttribute="trailing" id="yfK-tC-5uq"/>
+                        </constraints>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="iYj-Kq-Ea1" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="50.467289719626166" y="373.86609071274302"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="CompassLogo" width="469" height="110"/>
+        <image name="backgroundImage" width="93.666664123535156" height="203"/>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>

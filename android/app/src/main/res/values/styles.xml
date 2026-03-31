@@ -1,0 +1,12 @@
+<resources>
+    <!-- Base application theme -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Customize your theme here if needed -->
+    </style>
+
+    <!-- Splash screen theme -->
+    <style name="SplashTheme" parent="AppTheme">
+        <item name="android:windowBackground">@drawable/background_image</item>
+        <item name="android:windowFullscreen">true</item>
+    </style>
+</resources>
