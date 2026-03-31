@@ -1,0 +1,82 @@
+{
+  "side_bar": {
+    "chat_history": " سجل المحادثات",
+    "delete": "حذف",
+    "rename_title": "إعادة تسمية العنوان",
+    "share_chat": "مشاركة المحادثة",
+    "new_chat": "محادثة جديدة",
+    "log_out": "تسجيل الخروج",
+    "delete_chat": "حذف المحادثة",
+    "cancel": "إلغاء",
+    "this_will_delete": "سيتم حذف هذا"
+  },
+  "header": {
+    "jais": "Jais 30B",
+    "gpt": "GPT-4o",
+    "en": "EN",
+    "ar": "عربي",
+    "web": "محرك البحث",
+    "on": "يعمل",
+    "off": "لا يعمل",
+    "not_available_text":"النموذج المطلوب غير متوفر"
+  },
+  "landing_page": {
+    "ai_with_empathy": "ما وراء الذكاء الاصطناعي: قوة التعاون بين الإنسان و الذكاء الاصطناعي",
+    "start_using": "ابدأ الاستخدام",
+    "no_internet": "لا يوجد اتصال بالإنترنت، يرجى التحقق من اتصالك بالإنترنت والمحاولة مرة أخرى.",
+    "enter_org_id": "الرجاء ادخال رقم التعريف الخاص بجهتك",
+    "enter_org_id_placeholder": "",
+    "invalid_org_id": "لم يتم العثور على رقم التعريف الخاص بك , الرجاء التواصل معنا 'compass.support@core42.ai'",
+    "submit": "إرسال",
+    "please_enter_org_id": "لم يتم العثور على رقم التعريف الخاص بك , الرجاء التواصل معنا 'compass.support@core42.ai'",
+    "no_response": "Something went wrong."
+  },
+  "chat_page": {
+    "important_info": "قد يرتكب الذكاء الاصطناعي أخطاءً. تحقق من المعلومات المهمة",
+    "type_message_here": "اكتب رسالتك هنا",
+    "how_can_i_assist": "كيف يمكنني مساعدتك اليوم؟",
+    "hi": "مرحباً",
+    "regenerate": "تجديد ",
+    "error_in_response_try_again": "An error occurred while generating the response. Please click retry to try again",
+    "retry": "Retry",
+    "citations": "اقتبس من"
+  },
+  "sample_prompts": {
+    "prompt_1_title": "اكتب بيانًا صحفيًا عن سياسة تأشيرات جديدة في الإمارات، مع التركيز على كيف تتماشى مع الأولويات الوطنية وفوائدها للسياح.",
+    "prompt_2_title": "ابحث عن أمثلة على رسوم مواقف السيارات الديناميكية الناجحة في دول أخرى واشرح ما يمكن أن تتعلمه الإمارات منها.",
+    "prompt_3_title": "ناقش كيف يمكن أن تؤثر الضرائب على الشركات الصغيرة في الإمارات، بالنظر إلى الضرائب واللوائح والمنافسة في السوق."
+  },
+  "settings": {
+    "settings_title": "الإعدادات",
+    "retrieve_documents": "استرجاع هذا العدد من الوثائق من البحث",
+    "follow_up_questions": "اقترح أسئلة متابعة",
+    "user_persona": "شخصية المستخدم",
+    "system_persona": "شخصية النظام",
+    "response_length": "طول الاستجابة",
+    "conversation_type": "نوع المحادثة",
+    "folder": "ملف",
+    "multiple_folders": "اختر ملفات متعددة",
+    "tags": "علامات",
+    "language": "اللغة",
+    "creative": "إبداعي",
+    "balanced": "متوازن",
+    "precise": "دقيق",
+    "succinct": "موجز",
+    "standard": "قياسي",
+    "thorough": "شامل",
+    "apply": "تطبيق",
+    "reset_all": "إعادة تعيين الكل"
+  },
+  "message_prompt": {
+    "edit": "تحرير",
+    "send": "إرسال",
+    "cancel": "إلغاء"
+  },
+  "profile": {
+    "logout": "تسجيل خروج"
+  },
+  "modal": {
+    "search": "البحث",
+    "models": "نماذج"
+  }
+}

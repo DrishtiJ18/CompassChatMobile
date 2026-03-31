@@ -1,0 +1,28 @@
+patch-package
+--- a/node_modules/react-native-popover-view/dist/BasePopover.js
++++ b/node_modules/react-native-popover-view/dist/BasePopover.js
+@@ -403,15 +403,15 @@ var BasePopover = /** @class */ (function (_super) {
+         var containerStyle = __assign(__assign({}, styles.container), { opacity: animatedValues.fade });
+         var backgroundColor = flattenedPopoverStyle.backgroundColor ||
+             styles.popoverContent.backgroundColor;
+-        return (React.createElement(View, { pointerEvents: "box-none", style: [styles.container, { top: -1 * FIX_SHIFT }] },
+-            React.createElement(View, { pointerEvents: "box-none", style: [styles.container, { top: FIX_SHIFT, flex: 1 }], onLayout: function (evt) { return _this.props.onDisplayAreaChanged(new Rect(evt.nativeEvent.layout.x, evt.nativeEvent.layout.y - FIX_SHIFT, evt.nativeEvent.layout.width, evt.nativeEvent.layout.height)); } }),
+-            React.createElement(Animated.View, { pointerEvents: "box-none", style: containerStyle },
+-                this.props.showBackground !== false && (React.createElement(TouchableWithoutFeedback, { onPress: this.props.onRequestClose },
+-                    React.createElement(Animated.View, { style: backgroundStyle }))),
+-                React.createElement(View, { pointerEvents: "box-none", style: __assign({ top: 0, left: 0 }, shadowStyle) },
+-                    React.createElement(Animated.View, { style: transformStyle },
+-                        React.createElement(View, { ref: this.popoverRef, style: contentWrapperStyle, onLayout: function (evt) {
+-                                var layout = __assign({}, evt.nativeEvent.layout);
++            return (React.createElement(View, {accessible: false, pointerEvents: "box-none", style: [styles.container, { top: -1 * FIX_SHIFT }] },
++                    React.createElement(View, { accessible: false, pointerEvents: "box-none", style: [styles.container, { top: FIX_SHIFT, flex: 1 }], onLayout: function (evt) { return _this.props.onDisplayAreaChanged(new Rect(evt.nativeEvent.layout.x, evt.nativeEvent.layout.y - FIX_SHIFT, evt.nativeEvent.layout.width, evt.nativeEvent.layout.height)); } }),
++                    React.createElement(Animated.View, { accessible: false, pointerEvents: "box-none", style: containerStyle },
++                        this.props.showBackground !== false && (React.createElement(TouchableWithoutFeedback, { accessible: false, onPress: this.props.onRequestClose },
++                            React.createElement(Animated.View, { accessible: false, style: backgroundStyle }))),
++                        React.createElement(View, { accessible: false, pointerEvents: "box-none", style: __assign({ top: 0, left: 0 }, shadowStyle, {flex:1, zIndex: 3}) },
++                            React.createElement(Animated.View, {accessible: false, style: transformStyle },
++                                React.createElement(View, { accessible: false, ref: this.popoverRef, style: contentWrapperStyle, onLayout: function (evt) {
++                                    var layout = __assign({}, evt.nativeEvent.layout);
+                                 setTimeout(function () { return _this._isMounted &&
+                                     _this.measureContent(new Size(layout.width, layout.height)); }, 10);
+                             } }, this.props.children),

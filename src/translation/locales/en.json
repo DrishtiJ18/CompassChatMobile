@@ -1,0 +1,83 @@
+{
+  "side_bar": {
+    "chat_history": "Chat history",
+    "delete": "delete",
+    "rename_title": "Rename Title",
+    "share_chat": "Share Chat",
+    "new_chat": "New Chat",
+    "log_out": "Log out",
+    "delete_chat": "Delete Chat",
+    "cancel": "cancel",
+    "this_will_delete": "This will delete"
+  },
+  "header": {
+    "jais": "Jais 30B",
+    "gpt": "GPT-4o",
+    "en": "EN",
+    "ar": "عربي",
+    "web": "Web Search",
+    "work": "Work",
+    "on": "On",
+    "off": "Off",
+    "not_available_text" : "Not available for selected model"
+  },
+  "landing_page": {
+    "ai_with_empathy": "Beyond AI: The Power of Human-AI Collaboration",
+    "start_using": "Start Using",
+    "no_internet": "No Internet Connection, Please check your internet connection and try again.",
+    "enter_org_id": "Enter Organization ID",
+    "enter_org_id_placeholder": "",
+    "invalid_org_id": "ID not found. Please contact compass.support@core42.ai",
+    "submit": "Submit",
+    "please_enter_org_id": "ID not found. Please contact compass.support@core42.ai",
+    "no_response": "Something went wrong."
+  },
+  "chat_page": {
+    "important_info": "AI can make mistakes. Check important info.",
+    "type_message_here": "Type your message here",
+    "how_can_i_assist": "How can I assist you today?",
+    "hi": "Hi",
+    "regenerate": "Regenerate",
+    "error_in_response_try_again": "An error occurred while generating the response. Please click retry to try again",
+    "retry": "Retry",
+    "citations": "Citations"
+  },
+  "sample_prompts": {
+    "prompt_1_title": "Draft a press release announcing a new visa policy for the UAE, emphasizing its alignment with national priorities and potential benefits for tourists.",
+    "prompt_2_title": "Identify relevant case studies of successful implementation of dynamic parking fees in other countries, highlighting potential lessons for the UAE.",
+    "prompt_3_title": "Analyze the potential economic impact of corporate taxes on small businesses in the UAE, considering factors such as taxation, regulations, and market competition."
+  },
+  "settings": {
+    "settings_title": "settings",
+    "retrieve_documents": "Retrieve this many documents from search",
+    "follow_up_questions": "Suggest follow-up questions",
+    "user_persona": "User Persona",
+    "system_persona": "System Persona",
+    "response_length": "Response length",
+    "conversation_type": "Conversation Type",
+    "folder": "folder",
+    "multiple_folders": "Select multiple folders",
+    "tags": "Tags",
+    "language": "Language",
+    "creative": "Creative",
+    "balanced": "Balanced",
+    "precise": "Precise",
+    "succinct": "Succinct",
+    "standard": "Standard",
+    "thorough": "Thorough",
+    "apply": "Apply",
+    "reset_all": "Reset All"
+  },
+  "message_prompt": {
+    "edit": "Edit",
+    "send": "Send",
+    "cancel": "Cancel"
+  },
+  "profile": {
+    "logout": "Log out"
+  },
+  "modal": {
+    "search": "Search",
+    "models": "Models"
+  }
+}
